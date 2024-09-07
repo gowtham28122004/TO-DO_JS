@@ -4,11 +4,10 @@ const selectAllButton = document.getElementById("select-all");
 const deleteButton = document.getElementById("delete-selected");
 const cancelButton = document.getElementById("cancel-selected");
 
-function addTask(){
-    if(inputBox.value === ''){
+function addTask() {
+    if (inputBox.value === '') {
         alert("You must write something!");
-    }
-    else{
+    } else {
         let li = document.createElement("li");
         li.innerHTML = inputBox.value;
         listContainer.appendChild(li);
@@ -22,32 +21,19 @@ function addTask(){
 }
 
 inputBox.addEventListener("keypress", (event) => {
-    if(event.key === "Enter") {
-        if(inputBox.value === ''){
-            alert("You must write something!");
-        }
-        else{
-            let li = document.createElement("li");
-            li.innerHTML = inputBox.value;
-            listContainer.appendChild(li);
-            let span = document.createElement("span");
-            span.innerHTML = "\u00d7";
-            li.appendChild(span);
-            inputBox.value = '';
-            saveData();
-            updateButtonsVisibility();
-        }
+    if (event.key === "Enter") {
+        addTask();
     }
 });
 
-listContainer.addEventListener("click",function(e){
-    if(e.target.tagName === "LI"){
+listContainer.addEventListener("click", function (e) {
+    if (e.target.tagName === "LI") {
         e.target.classList.toggle("checked");
         saveData();
-    }
-    else if(e.target.tagName === "SPAN") {
+    } else if (e.target.tagName === "SPAN") {
         e.target.parentElement.remove();
         saveData();
+        updateButtonsVisibility();
     }
 }, false);
 
@@ -61,9 +47,8 @@ function showTask() {
     } else {
         listContainer.innerHTML = "";
     }
+    updateButtonsVisibility();
 }
-
-showTask();
 
 function selectAllTasks() {
     let tasks = document.querySelectorAll("li");
@@ -85,7 +70,6 @@ function deleteSelectedTasks() {
         saveData();
         updateButtonsVisibility();
     }
-    closeModal();
 }
 
 function cancelSelection() {
@@ -107,8 +91,4 @@ function updateButtonsVisibility() {
     }
 }
 
-window.onclick = function(event) {
-    if (event.target === modal) {
-        closeModal();
-    }
-}
+showTask();
