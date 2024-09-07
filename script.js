@@ -68,7 +68,7 @@ function deleteSelectedTasks() {
     if (confirmation) {
         selectedTasks.forEach(task => task.remove());
         saveData();
-        updateButtonsVisibility();
+        updateButtonsVisibility(); // Update visibility after deletion
     }
 }
 
